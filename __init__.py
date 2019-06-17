@@ -1,25 +1,23 @@
-PACKAGE_NAME = 'Pyrr'
+PACKAGE_NAME = 'PyFlowPyrr'
 from collections import OrderedDict
 from PyFlow.UI.UIInterfaces import IPackage
 
 # Pins
-from PyFlow.Packages.Pyrr.Pins.QuatPin import QuatPin
-from PyFlow.Packages.Pyrr.Pins.FloatVector3Pin import FloatVector3Pin
-from PyFlow.Packages.Pyrr.Pins.FloatVector4Pin import FloatVector4Pin
-from PyFlow.Packages.Pyrr.Pins.Matrix33Pin import Matrix33Pin
-from PyFlow.Packages.Pyrr.Pins.Matrix44Pin import Matrix44Pin
+from PyFlow.Packages.PyFlowPyrr.Pins.QuatPin import QuatPin
+from PyFlow.Packages.PyFlowPyrr.Pins.FloatVector3Pin import FloatVector3Pin
+from PyFlow.Packages.PyFlowPyrr.Pins.FloatVector4Pin import FloatVector4Pin
+from PyFlow.Packages.PyFlowPyrr.Pins.Matrix33Pin import Matrix33Pin
+from PyFlow.Packages.PyFlowPyrr.Pins.Matrix44Pin import Matrix44Pin
 
 # Function based nodes
-from PyFlow.Packages.Pyrr.FunctionLibraries.Matrix33 import Matrix33
-from PyFlow.Packages.Pyrr.FunctionLibraries.Matrix44 import Matrix44
-from PyFlow.Packages.Pyrr.FunctionLibraries.QuatLib import QuatLib
-from PyFlow.Packages.Pyrr.FunctionLibraries.Vector3 import Vector3
-from PyFlow.Packages.Pyrr.FunctionLibraries.Vector4 import Vector4
+from PyFlow.Packages.PyFlowPyrr.FunctionLibraries.Matrix33 import Matrix33
+from PyFlow.Packages.PyFlowPyrr.FunctionLibraries.Matrix44 import Matrix44
+from PyFlow.Packages.PyFlowPyrr.FunctionLibraries.QuatLib import QuatLib
+from PyFlow.Packages.PyFlowPyrr.FunctionLibraries.Vector3 import Vector3
+from PyFlow.Packages.PyFlowPyrr.FunctionLibraries.Vector4 import Vector4
 
 # Factories
-from PyFlow.Packages.Pyrr.Factories.PinInputWidgetFactory import getInputWidget
-from PyFlow.Packages.Pyrr.Factories.UINodeFactory import createUINode
-from PyFlow.Packages.Pyrr.Factories.UIPinFactory import createUIPin
+from PyFlow.Packages.PyFlowPyrr.Factories.PinInputWidgetFactory import getInputWidget
 
 
 _FOO_LIBS = {
@@ -46,9 +44,9 @@ _PINS = {
 _TOOLS = OrderedDict()
 
 
-class Pyrr(IPackage):
+class PyFlowPyrr(IPackage):
     def __init__(self):
-        super(Pyrr, self).__init__()
+        super(PyFlowPyrr, self).__init__()
 
     @staticmethod
     def GetFunctionLibraries():
@@ -65,14 +63,6 @@ class Pyrr(IPackage):
     @staticmethod
     def GetToolClasses():
         return _TOOLS
-
-    @staticmethod
-    def UIPinsFactory():
-        return createUIPin
-
-    @staticmethod
-    def UINodesFactory():
-        return createUINode
 
     @staticmethod
     def PinsInputWidgetFactory():
