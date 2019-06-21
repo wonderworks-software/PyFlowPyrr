@@ -2,6 +2,7 @@ import weakref
 import pyrr
 
 from PyFlow.Core.Common import *
+from PyFlow.UI.Canvas.UICommon import *
 from PyFlow.UI.Widgets.InputWidgets import *
 
 from PyFlow.UI.Widgets.QtSliders import pyf_Slider
@@ -514,7 +515,7 @@ class Matrix44InputWidget(InputWidgetRaw):
         super(Matrix44InputWidget, self).resizeEvent(event)
 
 
-def getInputWidget(dataType, dataSetter, defaultValue):
+def getInputWidget(dataType, dataSetter, defaultValue, widgetVariant=DEFAULT_WIDGET_VARIANT):
     '''
     factory method
     '''
