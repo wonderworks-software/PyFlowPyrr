@@ -1,3 +1,5 @@
+print("abcdefg")
+
 PACKAGE_NAME = 'PyFlowPyrr'
 from collections import OrderedDict
 from PyFlow.UI.UIInterfaces import IPackage
