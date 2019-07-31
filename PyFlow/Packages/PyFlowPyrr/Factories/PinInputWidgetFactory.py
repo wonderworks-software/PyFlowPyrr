@@ -515,18 +515,18 @@ class Matrix44InputWidget(InputWidgetRaw):
         super(Matrix44InputWidget, self).resizeEvent(event)
 
 
-def getInputWidget(dataType, dataSetter, defaultValue, widgetVariant=DEFAULT_WIDGET_VARIANT):
+def getInputWidget(dataType, dataSetter, defaultValue, widgetVariant=DEFAULT_WIDGET_VARIANT, **kwds):
     '''
     factory method
     '''
     if dataType == 'FloatVector3Pin':
-        return FloatVector3InputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue)
+        return FloatVector3InputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue, **kwds)
     if dataType == 'FloatVector4Pin':
-        return FloatVector4InputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue)
+        return FloatVector4InputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue, **kwds)
     if dataType == 'QuatPin':
-        return QuatInputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue)
+        return QuatInputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue, **kwds)
     if dataType == 'Matrix33Pin':
-        return Matrix33InputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue)
+        return Matrix33InputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue, **kwds)
     if dataType == 'Matrix44Pin':
-        return Matrix44InputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue)
+        return Matrix44InputWidget(dataSetCallback=dataSetter, defaultValue=defaultValue, **kwds)
     return None
