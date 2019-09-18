@@ -5,7 +5,7 @@ from PyFlow.Core.Common import *
 from PyFlow.UI.Canvas.UICommon import *
 from PyFlow.UI.Widgets.InputWidgets import *
 
-from PyFlow.UI.Widgets.QtSliders import pyf_Slider
+from PyFlow.UI.Widgets.QtSliders import valueBox, pyf_Slider
 
 from Qt import QtWidgets
 
@@ -21,32 +21,24 @@ class FloatVector3InputWidget(InputWidgetRaw):
         self.setLayout(QtWidgets.QHBoxLayout())
         self.layout().setContentsMargins(1, 1, 1, 1)
         self.layout().setSpacing(1)
-        self.dsbX = pyf_Slider(self, "float", style=0, name="x")
-        self.dsbY = pyf_Slider(self, "float", style=0, name="y")
-        self.dsbZ = pyf_Slider(self, "float", style=0, name="z")
-        self.layout().addWidget(self.dsbX)
-        self.layout().addWidget(self.dsbY)
-        self.layout().addWidget(self.dsbZ)
+        self.vbX = valueBox(buttons=True, labelText="X")
+        self.vbY = valueBox(buttons=True, labelText="Y")
+        self.vbZ = valueBox(buttons=True, labelText="Z")
+        self.layout().addWidget(self.vbX)
+        self.layout().addWidget(self.vbY)
+        self.layout().addWidget(self.vbZ)
 
-        self._configSpinBoxes()
-        self.dsbX.valueChanged.connect(self._onDataChangedX)
-        self.dsbY.valueChanged.connect(self._onDataChangedY)
-        self.dsbZ.valueChanged.connect(self._onDataChangedZ)
+        # self._configSpinBoxes()
+        self.vbX.valueChanged.connect(self._onDataChangedX)
+        self.vbY.valueChanged.connect(self._onDataChangedY)
+        self.vbZ.valueChanged.connect(self._onDataChangedZ)
 
     def blockWidgetSignals(self, bLocked):
-        for w in [self.dsbX, self.dsbY, self.dsbZ]:
+        for w in [self.vbX, self.vbY, self.vbZ]:
             w.blockSignals(bLocked)
 
     def asDataTypeClass(self):
-        return pyrr.Vector3([self.dsbX.value(), self.dsbY.value(), self.dsbZ.value()])
-
-    def _configSpinBoxes(self):
-        for x in [self.dsbX, self.dsbY, self.dsbZ]:
-            x.setDecimals(FLOAT_DECIMALS)
-            x.setRange(FLOAT_RANGE_MIN, FLOAT_RANGE_MAX)
-            x.setSingleStep(FLOAT_SINGLE_STEP)
-            x.setDisplayMinimun(0)
-            x.setDisplayMaximum(10)
+        return pyrr.Vector3([self.vbX.value(), self.vbY.value(), self.vbZ.value()])
 
     def _onDataChangedX(self, val):
         v = self.asDataTypeClass()
@@ -64,20 +56,9 @@ class FloatVector3InputWidget(InputWidgetRaw):
         self.dataSetCallback(v)
 
     def setWidgetValue(self, val):
-        self.dsbX.setValue(val.x)
-        self.dsbY.setValue(val.y)
-        self.dsbZ.setValue(val.z)
-
-    def resizeEvent(self, event):
-        if self.width() < 260:
-            for x in [self.dsbX, self.dsbY, self.dsbZ]:
-                x.hideSlider()
-                x.hideLabel()
-        else:
-            for x in [self.dsbX, self.dsbY, self.dsbZ]:
-                x.showSlider()
-                x.showLabel()
-        super(FloatVector3InputWidget, self).resizeEvent(event)
+        self.vbX.setValue(val.x)
+        self.vbY.setValue(val.y)
+        self.vbZ.setValue(val.z)
 
 
 class FloatVector4InputWidget(InputWidgetRaw):
@@ -88,14 +69,13 @@ class FloatVector4InputWidget(InputWidgetRaw):
         self.setLayout(QtWidgets.QHBoxLayout())
         self.layout().setContentsMargins(1, 1, 1, 1)
         self.layout().setSpacing(1)
-        self.dsbX = pyf_Slider(self, "float", style=0, name="x")
-        self.dsbY = pyf_Slider(self, "float", style=0, name="y")
-        self.dsbZ = pyf_Slider(self, "float", style=0, name="z")
-        self.dsbW = pyf_Slider(self, "float", style=0, name="w")
+        self.dsbX = valueBox(buttons=True, labelText="X")
+        self.dsbY = valueBox(buttons=True, labelText="Y")
+        self.dsbZ = valueBox(buttons=True, labelText="Z")
+        self.dsbW = valueBox(buttons=True, labelText="W")
         for x in [self.dsbX, self.dsbY, self.dsbZ, self.dsbW]:
             self.layout().addWidget(x)
 
-        self._configSpinBoxes()
         self.dsbX.valueChanged.connect(self._onDataChangedX)
         self.dsbY.valueChanged.connect(self._onDataChangedY)
         self.dsbZ.valueChanged.connect(self._onDataChangedZ)
@@ -107,14 +87,6 @@ class FloatVector4InputWidget(InputWidgetRaw):
 
     def asDataTypeClass(self):
         return pyrr.Vector4([self.dsbX.value(), self.dsbY.value(), self.dsbZ.value(), self.dsbW.value()])
-
-    def _configSpinBoxes(self):
-        for x in [self.dsbX, self.dsbY, self.dsbZ, self.dsbW]:
-            x.setDecimals(FLOAT_DECIMALS)
-            x.setRange(FLOAT_RANGE_MIN, FLOAT_RANGE_MAX)
-            x.setSingleStep(FLOAT_SINGLE_STEP)
-            x.setDisplayMinimun(0)
-            x.setDisplayMaximum(10)
 
     def _onDataChangedX(self, val):
         v = self.asDataTypeClass()
@@ -142,17 +114,6 @@ class FloatVector4InputWidget(InputWidgetRaw):
         self.dsbZ.setValue(val.z)
         self.dsbW.setValue(val.w)
 
-    def resizeEvent(self, event):
-        if self.width() < 340:
-            for x in [self.dsbX, self.dsbY, self.dsbZ, self.dsbW]:
-                x.hideSlider()
-                x.hideLabel()
-        else:
-            for x in [self.dsbX, self.dsbY, self.dsbZ, self.dsbW]:
-                x.showSlider()
-                x.showLabel()
-        super(FloatVector4InputWidget, self).resizeEvent(event)
-
 
 class QuatInputWidget(FloatVector4InputWidget):
     """Quaternion data input widget"""
@@ -173,15 +134,15 @@ class Matrix33InputWidget(InputWidgetRaw):
         self.setLayout(QtWidgets.QGridLayout())
         self.layout().setContentsMargins(1, 1, 1, 1)
         self.layout().setSpacing(1)
-        self.dsbm11 = pyf_Slider(self, "float", style=0)
-        self.dsbm12 = pyf_Slider(self, "float", style=0)
-        self.dsbm13 = pyf_Slider(self, "float", style=0)
-        self.dsbm21 = pyf_Slider(self, "float", style=0)
-        self.dsbm22 = pyf_Slider(self, "float", style=0)
-        self.dsbm23 = pyf_Slider(self, "float", style=0)
-        self.dsbm31 = pyf_Slider(self, "float", style=0)
-        self.dsbm32 = pyf_Slider(self, "float", style=0)
-        self.dsbm33 = pyf_Slider(self, "float", style=0)
+        self.dsbm11 = valueBox(buttons=True, labelText="11")
+        self.dsbm12 = valueBox(buttons=True, labelText="12")
+        self.dsbm13 = valueBox(buttons=True, labelText="13")
+        self.dsbm21 = valueBox(buttons=True, labelText="21")
+        self.dsbm22 = valueBox(buttons=True, labelText="22")
+        self.dsbm23 = valueBox(buttons=True, labelText="23")
+        self.dsbm31 = valueBox(buttons=True, labelText="31")
+        self.dsbm32 = valueBox(buttons=True, labelText="32")
+        self.dsbm33 = valueBox(buttons=True, labelText="33")
 
         self.layout().addWidget(self.dsbm22, 1, 1, 1, 1)
         self.layout().addWidget(self.dsbm21, 1, 0, 1, 1)
@@ -192,7 +153,6 @@ class Matrix33InputWidget(InputWidgetRaw):
         self.layout().addWidget(self.dsbm12, 0, 1, 1, 1)
         self.layout().addWidget(self.dsbm11, 0, 0, 1, 1)
         self.layout().addWidget(self.dsbm13, 0, 2, 1, 1)
-        self._configSpinBoxes()
 
         self.dsbm11.valueChanged.connect(self.m11Changed)
         self.dsbm12.valueChanged.connect(self.m12Changed)
@@ -218,17 +178,6 @@ class Matrix33InputWidget(InputWidgetRaw):
             [self.dsbm21.value(), self.dsbm22.value(), self.dsbm23.value()],
             [self.dsbm31.value(), self.dsbm32.value(), self.dsbm33.value()]
         ])
-
-    def _configSpinBoxes(self):
-        ls = [self.dsbm11, self.dsbm12, self.dsbm13,
-              self.dsbm21, self.dsbm22, self.dsbm23,
-              self.dsbm31, self.dsbm32, self.dsbm33]
-        for x in ls:
-            x.setDecimals(FLOAT_DECIMALS)
-            x.setRange(FLOAT_RANGE_MIN, FLOAT_RANGE_MAX)
-            x.setSingleStep(FLOAT_SINGLE_STEP)
-            x.setDisplayMinimun(0)
-            x.setDisplayMaximum(10)
 
     def m11Changed(self, val):
         m = self.asDataTypeClass()
@@ -288,19 +237,6 @@ class Matrix33InputWidget(InputWidgetRaw):
         self.dsbm32.setValue(val.m32)
         self.dsbm33.setValue(val.m33)
 
-    def resizeEvent(self, event):
-        if self.width() < 260:
-            for x in [self.dsbm11, self.dsbm12, self.dsbm13,
-                      self.dsbm21, self.dsbm22, self.dsbm23,
-                      self.dsbm31, self.dsbm32, self.dsbm33]:
-                x.hideSlider()
-        else:
-            for x in [self.dsbm11, self.dsbm12, self.dsbm13,
-                      self.dsbm21, self.dsbm22, self.dsbm23,
-                      self.dsbm31, self.dsbm32, self.dsbm33]:
-                x.showSlider()
-        super(Matrix33InputWidget, self).resizeEvent(event)
-
 
 class Matrix44InputWidget(InputWidgetRaw):
     """Matrix44 data input widget"""
@@ -311,22 +247,22 @@ class Matrix44InputWidget(InputWidgetRaw):
         self.setLayout(QtWidgets.QGridLayout())
         self.layout().setContentsMargins(1, 1, 1, 1)
         self.layout().setSpacing(1)
-        self.dsbm11 = pyf_Slider(self, "float", style=0)
-        self.dsbm12 = pyf_Slider(self, "float", style=0)
-        self.dsbm13 = pyf_Slider(self, "float", style=0)
-        self.dsbm14 = pyf_Slider(self, "float", style=0)
-        self.dsbm21 = pyf_Slider(self, "float", style=0)
-        self.dsbm22 = pyf_Slider(self, "float", style=0)
-        self.dsbm23 = pyf_Slider(self, "float", style=0)
-        self.dsbm24 = pyf_Slider(self, "float", style=0)
-        self.dsbm31 = pyf_Slider(self, "float", style=0)
-        self.dsbm32 = pyf_Slider(self, "float", style=0)
-        self.dsbm33 = pyf_Slider(self, "float", style=0)
-        self.dsbm34 = pyf_Slider(self, "float", style=0)
-        self.dsbm41 = pyf_Slider(self, "float", style=0)
-        self.dsbm42 = pyf_Slider(self, "float", style=0)
-        self.dsbm43 = pyf_Slider(self, "float", style=0)
-        self.dsbm44 = pyf_Slider(self, "float", style=0)
+        self.dsbm11 = valueBox(buttons=True, labelText="11")
+        self.dsbm12 = valueBox(buttons=True, labelText="12")
+        self.dsbm13 = valueBox(buttons=True, labelText="13")
+        self.dsbm14 = valueBox(buttons=True, labelText="14")
+        self.dsbm21 = valueBox(buttons=True, labelText="21")
+        self.dsbm22 = valueBox(buttons=True, labelText="22")
+        self.dsbm23 = valueBox(buttons=True, labelText="23")
+        self.dsbm24 = valueBox(buttons=True, labelText="24")
+        self.dsbm31 = valueBox(buttons=True, labelText="31")
+        self.dsbm32 = valueBox(buttons=True, labelText="32")
+        self.dsbm33 = valueBox(buttons=True, labelText="33")
+        self.dsbm34 = valueBox(buttons=True, labelText="34")
+        self.dsbm41 = valueBox(buttons=True, labelText="41")
+        self.dsbm42 = valueBox(buttons=True, labelText="42")
+        self.dsbm43 = valueBox(buttons=True, labelText="43")
+        self.dsbm44 = valueBox(buttons=True, labelText="44")
 
         self.layout().addWidget(self.dsbm11, 0, 0, 1, 1)
         self.layout().addWidget(self.dsbm12, 0, 1, 1, 1)
@@ -344,8 +280,6 @@ class Matrix44InputWidget(InputWidgetRaw):
         self.layout().addWidget(self.dsbm42, 3, 1, 1, 1)
         self.layout().addWidget(self.dsbm43, 3, 2, 1, 1)
         self.layout().addWidget(self.dsbm44, 3, 3, 1, 1)
-
-        self._configSpinBoxes()
 
         self.dsbm11.valueChanged.connect(self.m11Changed)
         self.dsbm12.valueChanged.connect(self.m12Changed)
@@ -385,18 +319,6 @@ class Matrix44InputWidget(InputWidgetRaw):
             [self.dsbm41.value(), self.dsbm42.value(),
              self.dsbm43.value(), self.dsbm44.value()]
         ])
-
-    def _configSpinBoxes(self):
-        ls = [self.dsbm11, self.dsbm12, self.dsbm13, self.dsbm14,
-              self.dsbm21, self.dsbm22, self.dsbm23, self.dsbm24,
-              self.dsbm31, self.dsbm32, self.dsbm33, self.dsbm34,
-              self.dsbm41, self.dsbm42, self.dsbm43, self.dsbm44]
-        for x in ls:
-            x.setDecimals(FLOAT_DECIMALS)
-            x.setRange(FLOAT_RANGE_MIN, FLOAT_RANGE_MAX)
-            x.setSingleStep(FLOAT_SINGLE_STEP)
-            x.setDisplayMinimun(0)
-            x.setDisplayMaximum(10)
 
     def m11Changed(self, val):
         m = self.asDataTypeClass()
@@ -498,21 +420,6 @@ class Matrix44InputWidget(InputWidgetRaw):
         self.dsbm42.setValue(val.m42)
         self.dsbm43.setValue(val.m43)
         self.dsbm44.setValue(val.m44)
-
-    def resizeEvent(self, event):
-        if self.width() < 340:
-            for x in [self.dsbm11, self.dsbm12, self.dsbm13, self.dsbm14,
-                      self.dsbm21, self.dsbm22, self.dsbm23, self.dsbm24,
-                      self.dsbm31, self.dsbm32, self.dsbm33, self.dsbm34,
-                      self.dsbm41, self.dsbm42, self.dsbm43, self.dsbm44]:
-                x.hideSlider()
-        else:
-            for x in [self.dsbm11, self.dsbm12, self.dsbm13, self.dsbm14,
-                      self.dsbm21, self.dsbm22, self.dsbm23, self.dsbm24,
-                      self.dsbm31, self.dsbm32, self.dsbm33, self.dsbm34,
-                      self.dsbm41, self.dsbm42, self.dsbm43, self.dsbm44]:
-                x.showSlider()
-        super(Matrix44InputWidget, self).resizeEvent(event)
 
 
 def getInputWidget(dataType, dataSetter, defaultValue, widgetVariant=DEFAULT_WIDGET_VARIANT, **kwds):
