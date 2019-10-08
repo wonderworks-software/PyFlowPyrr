@@ -1,11 +1,12 @@
-
-
 from PyFlow.Core.Common import *
 import pyrr
+
+
 def prepareNode(node):
-    node.createInputPin(pinName="Curve", dataType="FloatVector3Pin",  structure=PinStructure.Array)
-    node.createOutputPin(pinName="TotalLength", dataType="FloatPin", structure=PinStructure.Single)
-    node.createOutputPin(pinName="PerPointLengths", dataType="FloatPin", structure=PinStructure.Array)
+    node.createInputPin(pinName="Curve", dataType="FloatVector3Pin",  structure=StructureType.Array)
+    node.createOutputPin(pinName="TotalLength", dataType="FloatPin", structure=StructureType.Single)
+    node.createOutputPin(pinName="PerPointLengths", dataType="FloatPin", structure=StructureType.Array)
+
 
 def compute(node):
     a = node.getData("Curve")
@@ -18,4 +19,3 @@ def compute(node):
     	lengths.append(TotalLength)
     node.setData("PerPointLengths", lengths)
     node.setData("TotalLength", TotalLength)
-
